@@ -1,29 +1,164 @@
-<!doctype html>
-<html lang="es">
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Detección iluminación promedio</title>
-    <link rel="stylesheet" href="./styles.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitoreo Energético - Cervecería Centroamericana</title>
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="icon" href="./logo.png" type="image/png">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap"
+        rel="stylesheet">
 
 </head>
 
 <body>
-    <div class="card">
-        <video id="video" autoplay playsinline></video>
-        <div>Iluminación promedio: <span id="value">—</span></div>
-        <small id="luxHint">Valor en escala 0 (oscuro) — 255 (muy claro)</small>
-        <div style="display:flex; gap:.5rem; margin-top:.5rem;">
-            <button id="startBtn">Iniciar cámara</button>
-            <button id="stopBtn" disabled>Detener</button>
+    <div class="navBar cuadrito">
+
+
+        <div class="logo">
+            <img src="./logo.png" alt="Logo Cervecería Centroamericana">
         </div>
+        <div class="titulo">
+            <h1>Monitoreo Energético</h1>
+        </div>
+        <div class="espaciador"></div>
+
     </div>
 
-    <canvas id="hiddenCanvas" style="display:none;"></canvas>
+    <div class="content">
+
+        <div class="consumo cuadrito">
+
+            <div class="titulo2 tituloConsumo">
+                <h2>
+
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                        class="bi bi-receipt" viewBox="0 0 16 16">
+                        <path
+                            d="M1.92.506a.5.5 0 0 1 .434.14L3 1.293l.646-.647a.5.5 0 0 1 .708 0L5 1.293l.646-.647a.5.5 0 0 1 .708 0L7 1.293l.646-.647a.5.5 0 0 1 .708 0L9 1.293l.646-.647a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .801.13l.5 1A.5.5 0 0 1 15 2v12a.5.5 0 0 1-.053.224l-.5 1a.5.5 0 0 1-.8.13L13 14.707l-.646.647a.5.5 0 0 1-.708 0L11 14.707l-.646.647a.5.5 0 0 1-.708 0L9 14.707l-.646.647a.5.5 0 0 1-.708 0L7 14.707l-.646.647a.5.5 0 0 1-.708 0L5 14.707l-.646.647a.5.5 0 0 1-.708 0L3 14.707l-.646.647a.5.5 0 0 1-.801-.13l-.5-1A.5.5 0 0 1 1 14V2a.5.5 0 0 1 .053-.224l.5-1a.5.5 0 0 1 .367-.27m.217 1.338L2 2.118v11.764l.137.274.51-.51a.5.5 0 0 1 .707 0l.646.647.646-.646a.5.5 0 0 1 .708 0l.646.646.646-.646a.5.5 0 0 1 .708 0l.646.646.646-.646a.5.5 0 0 1 .708 0l.646.646.646-.646a.5.5 0 0 1 .708 0l.646.646.646-.646a.5.5 0 0 1 .708 0l.509.509.137-.274V2.118l-.137-.274-.51.51a.5.5 0 0 1-.707 0L12 1.707l-.646.647a.5.5 0 0 1-.708 0L10 1.707l-.646.647a.5.5 0 0 1-.708 0L8 1.707l-.646.647a.5.5 0 0 1-.708 0L6 1.707l-.646.647a.5.5 0 0 1-.708 0L4 1.707l-.646.647a.5.5 0 0 1-.708 0z" />
+                        <path
+                            d="M3 4.5a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5m8-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5" />
+                    </svg>
+
+                    Consumo Energético
+                </h2>
+            </div>
+
+            <div class="datos">
+                <div class="linea">
+                    <p class="flex-2">Planta: </p>
+                    <p><span id="valorConsumoPlanta">0.0</span> Wh</p>
+                    <p><span id="porcConsumoPlanta">100</span>%</p>
+                </div>
+
+                <div class="linea">
+                    <p class="flex-2">Administración: </p>
+                    <p><span id="valorConsumoAdmon">0.0</span> Wh</p>
+                    <p><span id="porcConsumoAdmon">0</span>%</p>
+                </div>
+
+                <div class="linea">
+                    <p class="flex-2">Otros: </p>
+                    <p><span id="valorConsumoOtros">0.0</span> Wh</p>
+                    <p><span id="porcConsumoOtros">0</span>%</p>
+                </div>
+
+                <div class="linea lineaTotal">
+                    <p class="flex-2">Total: </p>
+                    <p><span id="valorConsumoTotal">0.0</span> Wh</p>
+                    <p><span id="porcConsumoTotal">100</span>%</p>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="generacion">
+            <div class="divGrafica cuadrito">
+                <div class="contenedor">
+                    <div class="icono-superior">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
+                            style="margin-top: 10px;" class="bi bi-brightness-high" viewBox="0 0 16 16">
+                            <path
+                                d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6m0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13m8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5M3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8m10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0m-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0m9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707M4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708" />
+                        </svg>
+                    </div>
+                    <div class="icono-inferior">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
+                            style="margin-bottom: 10px;" class="bi bi-lightning-charge" viewBox="0 0 16 16">
+                            <path
+                                d="M11.251.068a.5.5 0 0 1 .227.58L9.677 6.5H13a.5.5 0 0 1 .364.843l-8 8.5a.5.5 0 0 1-.842-.49L6.323 9.5H3a.5.5 0 0 1-.364-.843l8-8.5a.5.5 0 0 1 .615-.09zM4.157 8.5H7a.5.5 0 0 1 .478.647L6.11 13.59l5.732-6.09H9a.5.5 0 0 1-.478-.647L9.89 2.41z" />
+                        </svg>
+                    </div>
+                    <div class="barra-superior"></div>
+                    <div class="barra-inferior"></div>
+                </div>
+            </div>
+            <div class="detalles">
+
+                <div class="energiaSolar cuadrito">
+                    <div class="titulo2 tituloSolar">
+                        <h2>
+
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                                class="bi bi-brightness-high" viewBox="0 0 16 16">
+                                <path
+                                    d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6m0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13m8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5M3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8m10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0m-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0m9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707M4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708" />
+                            </svg>
+
+                            Energía Solar
+                        </h2>
+                    </div>
+                    <div class="numeros colorSolar">
+                        <p> <span id="valorSolar">0.0</span> Wh</p>
+                        <p> <span id="porcSolar">70</span>%</p>
+                    </div>
+
+                </div>
+
+                <div class="energiaNormal cuadrito">
+                    <div class="titulo2 tituloNormal">
+                        <h2>
+
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                                class="bi bi-lightning-charge" viewBox="0 0 16 16">
+                                <path
+                                    d="M11.251.068a.5.5 0 0 1 .227.58L9.677 6.5H13a.5.5 0 0 1 .364.843l-8 8.5a.5.5 0 0 1-.842-.49L6.323 9.5H3a.5.5 0 0 1-.364-.843l8-8.5a.5.5 0 0 1 .615-.09zM4.157 8.5H7a.5.5 0 0 1 .478.647L6.11 13.59l5.732-6.09H9a.5.5 0 0 1-.478-.647L9.89 2.41z" />
+                            </svg>
+
+                            Energía Convencional
+                        </h2>
+                    </div>
+                    <div class="numeros colorNormal">
+                        <p> <span id="valorNormal">0.0</span> Wh</p>
+                        <p> <span id="porcNormal">30</span>%</p>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>© 2025 Cervecería Centroamericana. Todos los derechos reservados.</p>
+    </footer>
+
+    <div class="ocultos">
+        <video id="video" autoplay></video>
+        <canvas id="canvas" width="160" height="120" style="display:none;"></canvas>
+    </div>
+
+
+
 
     <script src="./index.js"></script>
+
 </body>
 
 </html>
